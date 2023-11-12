@@ -1,5 +1,5 @@
 program tsadf;
-{программа ищет площадь треугольника по заданным координатам}
+{программа ищет площадь треугольника по заданным координатам.}
 var ax1,ay1,ax2,ay2,ax3,ay3:real;
 
 function sidelen(x1,x2,y1,y2:real):real;
@@ -25,4 +25,4 @@ writeln('enter x and y');
 read(ax3); read(ay3);
 
 writeln(s(sidelen(ax1,ax2,ay1,ay2),sidelen(ax2,ax3,ay2,ay3),sidelen(ax3,ax1,ay3,ay1)):00, ' m^2');
-end.
+end. 
