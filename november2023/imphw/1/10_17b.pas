@@ -1,11 +1,11 @@
 program homework;
 const
-  n = 3; 
+  n = 50; 
   k = 8;  
 type 
   stringk = string[k]; // Строка фиксированной длины
 var        
-  sl: array [1..n] of stringk; // Массив строк
+  sl: array [1..n+1] of stringk; // Массив строк
   a: char;              
   i, l: integer;      
 
@@ -22,18 +22,18 @@ begin
     end;
 end;
 
-
 begin
   writeln('Введите слова');
   read(a);
   l := 0;  // Изначально количество слов равно 0
   while a <> '.' do   
   begin
-    while a = ' ' do 
+    while a = ' ' do  //на случай если много пробелов - просто считываем
       read(a);
       
-    if a = '.' then break;             
-    l := l + 1;                       
+    if a = '.' then break;   //если точка без букв,то остановиться          
+    l := l + 1;     
+    //входим в слово             
     while (a <> '.') and (a <> ' ') do
     begin
       if not ((a >= 'a') and (a <= 'z')) then begin 
@@ -44,16 +44,18 @@ begin
         writeln('Ошибка ввода: превышена максимальная длина слова'); 
         exit;
       end;
+    if l > n then begin
+      writeln('ошибка ввода, слишком много слов');
+      exit();
+      end;
+      //если ошибок нет,то посимвольно заполняем ячейку
       sl[l] := sl[l] + a;
       read(a);
     end;
   end;
-//fix добавлена проверка слов
+//после цикла делаем проверку
   if l<2 then begin
     writeln('ошибка ввода: мало слов');
-    exit();
-  end else if l > n then begin
-    writeln('ошибка ввода, слишком много слов');
     exit();
   end;
 

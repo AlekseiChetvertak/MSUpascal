@@ -20,8 +20,7 @@ begin
       break;
     end;
 end;
-
-
+//main
 begin
   writeln('Введите слова');
   read(a);
@@ -43,6 +42,7 @@ begin
       read(a);
     end;
   end;
+//вывод
   for i := 1 to l - 1 do
   begin
     if (sl[i] <> sl[l]) and f(sl[i]) then writeln(sl[i]); 
