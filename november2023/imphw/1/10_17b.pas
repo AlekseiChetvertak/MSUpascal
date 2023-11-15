@@ -1,16 +1,15 @@
 program homework;
 const
-  n = 50; 
+  n = 3; 
   k = 8;  
 type 
   stringk = string[k]; // Строка фиксированной длины
-var
-  err: integer;         
+var        
   sl: array [1..n] of stringk; // Массив строк
   a: char;              
   i, l: integer;      
 
-//check repeatition
+//check repetition
 function f(var s: stringk): boolean;
 var
   i: integer;
@@ -22,6 +21,7 @@ begin
       break;
     end;
 end;
+
 
 begin
   writeln('Введите слова');
@@ -48,7 +48,15 @@ begin
       read(a);
     end;
   end;
-  
+//fix добавлена проверка слов
+  if l<2 then begin
+    writeln('ошибка ввода: мало слов');
+    exit();
+  end else if l > n then begin
+    writeln('ошибка ввода, слишком много слов');
+    exit();
+  end;
+
   for i := 1 to l - 1 do
   begin
     if (sl[i] <> sl[l]) and f(sl[i]) then 
