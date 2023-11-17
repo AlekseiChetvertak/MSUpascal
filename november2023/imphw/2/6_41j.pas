@@ -32,16 +32,12 @@ begin
       writeln('True');
       exit;
     end;
-  end else begin
-    writeln('a = ', a);
+  end else 
+  begin
     writeln('false');
     exit;
   end;
-
 end;
-
-
-{abc3.}
 
 if (charscounter = 1) and (a = ' ') then
 begin 
