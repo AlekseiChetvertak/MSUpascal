@@ -49,7 +49,7 @@ end;
 //main		
 begin 
   fileName := 'MyCharFile.txt';
-  characters := '()()()';
+  characters := '123456789';
   CreateCharFile(fileName, characters);
 
   writeln('File created successfully.');
