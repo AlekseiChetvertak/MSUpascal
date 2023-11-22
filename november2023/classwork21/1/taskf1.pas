@@ -1,3 +1,5 @@
+{создать файл и перезаписать в обратном порядке}
+
 program filesofchars;
 type F = file of char;
 var t:F;
@@ -5,6 +7,7 @@ var t:F;
     fileName: string;
     characters: string;
     g:char;
+
 procedure CreateCharFile(const fileName: string; const chars: string);
 var
   t: F;
@@ -19,33 +22,27 @@ begin
   Close(t);
 end;
 
-function balance(var m:F):boolean;
-var val: char;
-    open,close:integer;
-begin
 
-val:='0';
-reset(m);
-open:=0;
-close:=0;
 
-while not eof(m) do begin
-    
-    read(m,val);
-    if val = '(' then 
-    begin 
-        open := open + 1;
-    end else if val = ')' then
+procedure reversefile(m:F);
+    procedure print; //вспомогательная процедура 
+    var h:integer;
     begin
-        close := close+1;
+    if not eof(f) then 
+    begin 
+        read(t, h); 
+        print;
+        write(h, '_');
     end;
-    end;
-    
-if (open = close) then 
-        balance := true
-        else 
-        balance := false;
+begin 
+    reset(m);
+    print;
 end;
+
+
+
+
+
 //main		
 begin 
   fileName := 'MyCharFile.txt';
@@ -55,14 +52,6 @@ begin
   writeln('File created successfully.');
 
 assign(t,fileName);
-reset(t);
-if balance(t) then writeln('true. balanced')
-else writeln('false, not balanced');
+reversefile(t);
 
-while not eof(t) do 
-begin
-    read(t,g);
-    writeln(g);
-end;
-close(t);
 end.
