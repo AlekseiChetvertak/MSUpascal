@@ -11,8 +11,6 @@ var mainarr:massiv;
     Result:Boolean;
     program_mode:integer;
     
-
-
 //процедура ввода массива(здесь же можно посчитать минимальный элемент)
 procedure enteringmassiv(var arr:massiv);
 var i:integer;
@@ -20,15 +18,29 @@ begin
   writeln('please enter a mas ');
   for i:=1 to n do begin
     read(arr[i]);
-    end;
     mainarrcopy[i] := mainarr[i];
+    end;
   end;
+
+//debug
+
+procedure debug(tmparr:massiv);
+var c:integer;
+
+begin
+  writeln;
+  for c:=1 to n do begin
+  write(tmparr[c],' ');
+  end;
+  writeln;
+end;
 
 
 procedure sortmasdes(var arr:massiv);
 var i,j,max,tmp:integer; 
 // i - счетчик внешнего цикла, j - пробегает по массиву, //max - сохраняет номер минимального
 begin
+  writeln('--------------------------------');
   writeln('SORT N1: SELECTION SORT.');
   write('Source sequence: ');
   for k := 1 to n do begin
@@ -42,12 +54,14 @@ begin
         begin
           comparison1 := comparison1+1;
           max:=j;
-        end;
+        end
+        else comparison1 := comparison1+1;
       end;
       tmp:= arr[i];
       arr[i] := arr[max];
       arr[max]:= tmp;
       movement1 := movement1+1;
+      if ((program_mode) = 2) then debug(arr);//добавить условие включения и сообщение
       i := i+1;
     end;
   end;
@@ -57,6 +71,7 @@ procedure sortmasinc(var arr:massiv);
 var i,j,min,tmp:integer; 
 // i - счетчик внешнего цикла, j - пробегает по массиву, //min - сохраняет номер минимального
 begin
+  writeln('--------------------------------');
   writeln('SORT N1: SELECTION SORT.');
   write('Source sequence: '); //вывод изначальных данных
   for k := 1 to n do begin
@@ -77,6 +92,7 @@ begin
       arr[i] := arr[min];
       arr[min] := tmp;
       movement1 := movement1 + 1;
+      if ((program_mode) = 2) then debug(arr);
       i := i + 1;
     end;
   end;
@@ -86,7 +102,6 @@ begin
 //по возрастанию
 procedure merge(var arr:massiv;left,mid,right:integer);
 var
-
 i,j,k:integer; // счетчики
 n1,n2:integer;//длины
 L,R:massiv;
@@ -171,6 +186,7 @@ begin
     end;
     comparison2 := comparison2 + 1;
     movement2 := movement2 + 1;
+    if ((program_mode) = 2) then debug(arr);
     k:=k+1;
   end;
   //копирование оставшихся элементов из подмасива L(если R кончился быстрее)
@@ -220,6 +236,7 @@ end;
 
 //тело кода
 begin
+
 comparison1:=0;
 comparison2:=0;
 movement1:=0;
@@ -227,7 +244,6 @@ movement2:=0;
 writeln('enter the lenght of array: ');
 read(n);
 enteringmassiv(mainarr);
-
 
 WriteLn('please choose one of 2 sort types:');
 writeln('1 - inc');
@@ -239,7 +255,6 @@ read(sortkey);
 writeln('please enter program mode:');
 writeln('(1 - release)or  (2 - debug)');
 read(program_mode);
-
 
 //selection sort
 case sortkey of
@@ -255,16 +270,13 @@ end;
 writeln;
 writeln('number of comparison = ', comparison1);
 writeln('number of movements = ', movement1);
-
-
-
-
-for k:=0 to 2 do begin
+//Пробелы
+for k:=0 to 2 do begin 
   writeln;
 end;
 
-
-writeln('sort type 2 - MERGE SORT.');
+//вторая сортировка
+writeln('SORT TYPE 2 - MERGE SORT.');
 write('source sequence: ');
 for k:=1 to n do begin
   write(mainarrcopy[k],' ');
@@ -278,5 +290,4 @@ end;
 writeln;
 writeln('number of comparison = ', comparison2);
 writeln('number of movements = ', movement2);
-
 end.
