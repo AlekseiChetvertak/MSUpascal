@@ -1,6 +1,6 @@
 program edm;
 
-const sm=100;
+const sm = 100;
 type massiv = array[1..sm] of LongInt; 
 
 var mainarr:massiv;
@@ -16,7 +16,7 @@ procedure enteringmassiv(var arr:massiv);
 var i:integer;
 begin
   writeln('please enter a mas ');
-  for i:=1 to n do begin
+  for i := 1 to n do begin
     read(arr[i]);
     mainarrcopy[i] := mainarr[i];
     end;
@@ -24,15 +24,19 @@ begin
 
 //debug
 
-procedure debug(tmparr:massiv);
+procedure debug(tmparr:massiv;tmp:integer;comp:integer;l:integer;r:integer);
 var c:integer;
 
 begin
   writeln;
-  for c:=1 to n do begin
+  for c := 1 to n do begin
   write(tmparr[c],' ');
   end;
   writeln;
+  writeln('temp memory:',tmp);
+  writeln(l, ' <>/=/>/< ', r);
+  writeln('the number of comparison: ', comp);
+  //writeln('the number of swaps' );
 end;
 
 
@@ -46,23 +50,23 @@ begin
   for k := 1 to n do begin
     write(mainarr[k],' ');
   end;
-    i:=1;
-    while (i <= n-1) do begin
-      max:=i; //каждый новый проход будем стартовать не рассматривая первый элемент
-      for j := i+1 to n do begin
+    i := 1;
+    while (i <= n - 1) do begin
+      max := i; //каждый новый проход будем стартовать не рассматривая первый элемент
+      for j := i + 1 to n do begin
         if arr[j] > arr[max] then
         begin
-          comparison1 := comparison1+1;
-          max:=j;
+          comparison1 := comparison1 + 1;
+          max := j;
         end
-        else comparison1 := comparison1+1;
+        else comparison1 := comparison1 + 1;
       end;
-      tmp:= arr[i];
+      tmp := arr[i];
       arr[i] := arr[max];
       arr[max]:= tmp;
-      movement1 := movement1+1;
-      if ((program_mode) = 2) then debug(arr);//добавить условие включения и сообщение
-      i := i+1;
+      movement1 := movement1 + 1;
+      if ((program_mode) = 2) then debug(arr,tmp,comparison1,arr[j],arr[max]);//добавить условие включения и сообщение
+      i := i + 1;
     end;
   end;
 
@@ -79,9 +83,9 @@ begin
   end;
 
     i := 1;
-    while (i <= n-1) do begin
+    while (i <= n - 1) do begin
       min := i; //каждый новый проход будем стартовать не рассматривая первый элемент
-      for j := i+1 to n do begin
+      for j := i + 1 to n do begin
         if arr[j]< arr[min] then
         begin
           comparison1 := comparison1+1;
@@ -92,7 +96,7 @@ begin
       arr[i] := arr[min];
       arr[min] := tmp;
       movement1 := movement1 + 1;
-      if ((program_mode) = 2) then debug(arr);
+      if ((program_mode) = 2) then debug(arr,tmp,comparison1,arr[j],arr[min]);
       i := i + 1;
     end;
   end;
@@ -130,23 +134,26 @@ begin
     else
     begin
       arr[k] := R[j];
-      j := j+1;
+      j := j + 1;
     end;
+    comparison2 := comparison2 + 1;
+    movement2 := movement2 + 1;
+    if ((program_mode) = 2) then debug(arr,0,arr[k],L[i],R[i]);
     k := k+1;
   end;
   //копирование оставшихся элементов из подмасива L(если R кончился быстрее)
   while i<= n1 do
   begin
     arr[k]:= L[i];
-    i:=i+1;
-    k:=k+1;
+    i := i + 1;
+    k := k + 1;
   end;
 
   while j<= n2 do
     begin
-      arr[k]:=R[j];
-      j:=j+1;
-      k:=k+1;
+      arr[k] := R[j];
+      j := j + 1;
+      k := k + 1;
     end;
 end;
 
@@ -163,45 +170,45 @@ begin
   n2:=right - mid;
 
   for i:=1 to n1 do 
-    L[i]:=arr[left + i - 1];
-  for j:=1 to n2 do
-    R[j]:=arr[mid + j];
+    L[i] := arr[left + i - 1];
+  for j := 1 to n2 do
+    R[j] := arr[mid + j];
 
-  i:=1;
-  j:=1;
-  k:=left;
+  i := 1;
+  j := 1;
+  k := left;
 
   //слияние двух подмассивов в исходный массив arr
   while (i <= n1) and (j <= n2) do
   begin
     if L[i] >= R[j] then
     begin
-      arr[k]:=L[i];
-      i:=i+1;
+      arr[k] := L[i];
+      i := i + 1;
     end
     else
     begin
       arr[k] := R[j];
-      j:=j+1;
+      j := j + 1;
     end;
     comparison2 := comparison2 + 1;
     movement2 := movement2 + 1;
-    if ((program_mode) = 2) then debug(arr);
-    k:=k+1;
+    if ((program_mode) = 2) then debug(arr,0,comparison2,L[i],R[j]);
+    k := k + 1;
   end;
   //копирование оставшихся элементов из подмасива L(если R кончился быстрее)
-  while i<= n1 do
+  while i <= n1 do
   begin
-    arr[k]:= L[i];
-    i:=i+1;
-    k:=k+1;
+    arr[k] := L[i];
+    i := i + 1;
+    k := k + 1;
   end;
 
   while j<= n2 do
     begin
       arr[k]:=R[j];
-      j:=j+1;
-      k:=k+1;
+      j := j + 1;
+      k := k + 1;
     end;
 end;
 
@@ -211,10 +218,10 @@ var
 mid:integer;
 begin
 
-  if left<right then
+  if left < right then
   begin
     begin
-      mid:=(left+right) div 2;
+      mid := (left+right) div 2;
 
       merge_sort(arr,left,mid);
       merge_sort(arr,mid+1,right);
@@ -237,10 +244,10 @@ end;
 //тело кода
 begin
 
-comparison1:=0;
-comparison2:=0;
-movement1:=0;
-movement2:=0;
+comparison1 := 0;
+comparison2 := 0;
+movement1   := 0;
+movement2   := 0;
 writeln('enter the lenght of array: ');
 read(n);
 enteringmassiv(mainarr);
@@ -264,27 +271,27 @@ case sortkey of
 //вывод
 writeln();
 write('sorted sequence: ');
-for k:=1 to n do begin
+for k := 1 to n do begin
   write(mainarr[k],' ');
 end;
 writeln;
 writeln('number of comparison = ', comparison1);
 writeln('number of movements = ', movement1);
 //Пробелы
-for k:=0 to 2 do begin 
+for k := 0 to 2 do begin 
   writeln;
 end;
 
 //вторая сортировка
 writeln('SORT TYPE 2 - MERGE SORT.');
 write('source sequence: ');
-for k:=1 to n do begin
+for k := 1 to n do begin
   write(mainarrcopy[k],' ');
 end;
 merge_sort(mainarrcopy, 1,n);
 writeln();
 write('sorted sequence: ');
-for k:=1 to n do begin
+for k := 1 to n do begin
   write(mainarrcopy[k],' ');
 end;
 writeln;
