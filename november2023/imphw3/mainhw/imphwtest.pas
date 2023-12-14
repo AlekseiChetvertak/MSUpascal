@@ -1,6 +1,6 @@
 program edm;
 
-const sm=100;
+const sm = 100;
 type massiv = array[1..sm] of LongInt; 
 
 var mainarr:massiv;
@@ -16,7 +16,7 @@ procedure enteringmassiv(var arr:massiv);
 var i:integer;
 begin
   writeln('please enter a mas ');
-  for i:=1 to n do begin
+  for i := 1 to n do begin
     read(arr[i]);
     mainarrcopy[i] := mainarr[i];
     end;
@@ -29,7 +29,7 @@ var c:integer;
 
 begin
   writeln;
-  for c:=1 to n do begin
+  for c := 1 to n do begin
   write(tmparr[c],' ');
   end;
   writeln;
@@ -50,16 +50,16 @@ begin
   for k := 1 to n do begin
     write(mainarr[k],' ');
   end;
-    i:=1;
-    while (i <= n-1) do begin
+    i := 1;
+    while (i <= n - 1) do begin
       max:=i; //каждый новый проход будем стартовать не рассматривая первый элемент
-      for j := i+1 to n do begin
+      for j := i + 1 to n do begin
         if arr[j] > arr[max] then
         begin
-          comparison1 := comparison1+1;
-          max:=j;
+          comparison1 := comparison1 + 1;
+          max := j;
         end
-        else comparison1 := comparison1+1;
+        else comparison1 := comparison1 + 1;
       end;
       tmp:= arr[i];
       arr[i] := arr[max];
