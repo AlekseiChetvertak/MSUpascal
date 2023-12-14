@@ -7,7 +7,7 @@ var mainarr:massiv;
     mainarrcopy:massiv;
     sortkey,k:integer;
     n:integer; //пользователь вводи в эту переменную длину массива
-    movement1,comparison1,movement2,comparison2:integer;
+    movement1,comparison1,movement2,comparison2:integer; //счетчики
     Result:Boolean;
     program_mode:integer;
     
@@ -71,12 +71,8 @@ begin
 end;
 
 
-
-
-
-
 //по возрастанию
-procedure merge(var arr:massiv;left,mid,right:integer);
+procedure merge(var arr:massiv;left,mid,right,comparison2,movement2:integer);
 var
 i,j,k:integer; // счетчики
 n1,n2:integer;//длины
@@ -108,8 +104,8 @@ begin
       arr[k] := R[j];
       j := j+1;
     end;
-    comparison2 := comparison2 + 1;
-    movement2 := movement2 + 1;
+    compcounter := compcounter + 1;
+    swapscounter := swapscounter + 1;
     if ((program_mode) = 2) then debug(arr,0,arr[k],L[i],R[i]);
     k := k+1;
   end;
@@ -132,10 +128,9 @@ end;
 //по убыванию
 procedure mergedes(var arr:massiv;left,mid,right:integer);
 var
-
-i,j,k:integer; // счетчики
-n1,n2:integer;//длины
-L,R:massiv;
+  i,j,k:integer; // счетчики
+  n1,n2:integer;//длины
+  L,R:massiv;
 begin
 
   n1:=mid - left + 1;
@@ -200,7 +195,7 @@ begin
 
       if sortkey = 1 then
       begin
-        merge(arr,left,mid,right);
+        merge(arr,left,mid,right,comparison2,movement2);
       end
       else if sortkey = 2 then
       begin
