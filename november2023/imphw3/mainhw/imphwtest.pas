@@ -40,7 +40,7 @@ begin
 end;
 
 
-procedure sortmasdes(var arr:massiv);
+procedure selectionsort(var arr:massiv;stype:integer;compcounter:integer;swapscounter:integer);
 var i,j,max,tmp:integer; 
 // i - счетчик внешнего цикла, j - пробегает по массиву, //max - сохраняет номер минимального
 begin
@@ -54,52 +54,24 @@ begin
     while (i <= n - 1) do begin
       max:=i; //каждый новый проход будем стартовать не рассматривая первый элемент
       for j := i + 1 to n do begin
-        if arr[j] > arr[max] then
+        if ((stype*arr[j]) > (arr[max]*stype)) then
         begin
-          comparison1 := comparison1 + 1;
+          compcounter := compcounter + 1;
           max := j;
         end
-        else comparison1 := comparison1 + 1;
+        else compcounter := compcounter + 1;
       end;
       tmp:= arr[i];
       arr[i] := arr[max];
       arr[max]:= tmp;
-      movement1 := movement1+1;
-      if ((program_mode) = 2) then debug(arr,tmp,comparison1,arr[j],arr[max]);//добавить условие включения и сообщение
+      swapscounter := swapscounter+1;
+      if ((program_mode) = 2) then debug(arr,tmp,compcounter,arr[j],arr[max]);//добавить условие включения и сообщение
       i := i+1;
     end;
-  end;
+end;
 
 
-procedure sortmasinc(var arr:massiv);
-var i,j,min,tmp:integer; 
-// i - счетчик внешнего цикла, j - пробегает по массиву, //min - сохраняет номер минимального
-begin
-  writeln('--------------------------------');
-  writeln('SORT N1: SELECTION SORT.');
-  write('Source sequence: '); //вывод изначальных данных
-  for k := 1 to n do begin
-    write(mainarr[k],' ');
-  end;
 
-    i := 1;
-    while (i <= n-1) do begin
-      min := i; //каждый новый проход будем стартовать не рассматривая первый элемент
-      for j := i+1 to n do begin
-        if arr[j]< arr[min] then
-        begin
-          comparison1 := comparison1+1;
-          min := j;
-        end;
-      end;
-      tmp := arr[i];
-      arr[i] := arr[min];
-      arr[min] := tmp;
-      movement1 := movement1 + 1;
-      if ((program_mode) = 2) then debug(arr,tmp,comparison1,arr[j],arr[min]);
-      i := i + 1;
-    end;
-  end;
 
 
 
@@ -265,8 +237,8 @@ read(program_mode);
 
 //selection sort
 case sortkey of
-  1:sortmasinc(mainarr); 
-  2:sortmasdes(mainarr);
+  1:selectionsort(mainarr,-1,comparison1,movement1); 
+  2:selectionsort(mainarr,1,comparison1,movement1);
   end;
 //вывод
 writeln();
