@@ -193,7 +193,7 @@ begin
     end;
     comparison2 := comparison2 + 1;
     movement2 := movement2 + 1;
-    if ((program_mode) = 2) then debug(arr,0,comparison2,L[i],R[j]);
+  if ((program_mode) = 2) then debug(arr,0,comparison2,L[i],R[j]);
     k := k + 1;
   end;
   //копирование оставшихся элементов из подмасива L(если R кончился быстрее)
