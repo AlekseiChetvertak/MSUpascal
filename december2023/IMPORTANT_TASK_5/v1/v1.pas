@@ -41,10 +41,11 @@ end;
     pol := nextNode;
   end;
   end;
-// процедура для ввода многочлена с клавиатуры и его преобразования в список
+
+// процедура ввода с клавиатуры
 procedure UserEnterPolynom(var p:PNode);
 var s: string; // строка для хранения многочлена
-  i, k, a: integer; // переменные для циклов и вычислений
+  i, deg, kof: integer; // переменные для циклов и вычислений
   sign: char; // знак одночлена
 begin
   p := nil; // инициализируем список
@@ -53,9 +54,9 @@ begin
   s := s + ' ';
   i := 1;
 
-  while s[i] <> ' ' do // пока не достигнем конца строки
+  while s[i] <> ' ' do // до конца строки
   begin
-  sign := '+'; // по умолчанию знак одночлена положительный
+  sign := '+';
   if s[i] in ['+', '-'] then // если встретили знак
     begin
     sign := s[i];
@@ -64,38 +65,37 @@ begin
 
   if s[i] = '0' then // если встретили нулевой многочлен
   begin
-    EnteringPolynom(p, 0, 0); // создаем звено с нулевой степенью и коэффициентом
+    EnteringPolynom(p, 0, 0); 
     break;
   end;
 
-  // если встретили одночлен или a :
-  a := 1; // дефолтный коэффициент
-  k := 0; // дефолтное значение степени
+ 
+  kof := 1; //инициализация
+  deg := 0; 
   if s[i] <> 'X' then begin 
-    a := 0; // обнуляем коэффициент
+    kof := 0; // обнуляем коэффициент
     while s[i] in ['0'..'9'] do begin
-      a := a * 10 + ord(s[i]) - ord('0'); // вычисляем коэффициент
+      kof := kof * 10 + ord(s[i]) - ord('0'); // вычисляем коэффициент
       i := i + 1; 
       end;
   end;
-  if sign = '-' then a := -a;
+  if sign = '-' then kof := -kof;
   if s[i] = 'X' then 
   begin
   i := i + 1; 
-  k := 1;
+  deg := 1;
   if s[i] = '^' then 
   begin
     i := i + 1; 
-    k := 0;
+    deg := 0;
     while s[i] in ['0'..'9'] do begin
-      k := k * 10 + ord(s[i]) - ord('0'); // вычисляем степень
+      deg := deg * 10 + ord(s[i]) - ord('0'); // вычисляем степень
       i := i + 1; 
     end;
   end;
   end;
-      EnteringPolynom(p, a, k); // создаем звено с соответствующей степенью и коэффициентом
+      EnteringPolynom(p, kof, deg); // создаем звено с соответствующей степенью и коэффициентом
   end;
-  //sort(p);
 end;
 
 //процедура вывода многочлена
@@ -154,7 +154,8 @@ begin
 
 write('enter x:');
 read(input);
-writeln('COUNTED WITH X: ',countingval(polynom,input));
+writeln('-----------');
+writeln('RESULT: ',countingval(polynom,input));
 
   // Вывод списка
   Write('List: ');
