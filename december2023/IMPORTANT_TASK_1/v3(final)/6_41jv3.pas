@@ -22,7 +22,7 @@ begin
 
     if (inputChar = '.') and (letterCount > 0) and (digitCount = 1) then
       Break
-    else if (letterCount >= 9) then
+    else if (letterCount > 9) then
     begin
       toolong := True;
       Break;
