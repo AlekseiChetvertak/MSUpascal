@@ -118,11 +118,12 @@ begin
   end;
   Writeln;
 end;
+//функция возведения в степень
 function power(x, deg: integer): integer;
 var
   res, i: integer;
 begin
-  res := 1; // Initialize res to 1
+  res := 1; 
   for i := 1 to deg do
   begin
     res := res * x;
@@ -136,13 +137,13 @@ var
   sum: integer;
 begin
   sum := 0;
-  p := Head; // Corrected case for Head
+  p := Head;
   while p <> nil do
   begin
     sum := sum + p^.kof * power(x, p^.deg);
     p := p^.link;
   end;
-  countingval := sum; // Added the result assignment
+  countingval := sum; 
 end;
 
 

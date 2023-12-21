@@ -1,0 +1,2 @@
+malNumber: Longint): Longint;
+begin
