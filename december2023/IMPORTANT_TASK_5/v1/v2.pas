@@ -113,39 +113,25 @@ begin
 end;
 
 //процедура вывода многочлена
-//процедура вывода многочлена
 procedure PrintList(Head: PNode);
 begin
   // Вывод элементов списка
   while Head <> nil do
   begin
-    if (Head^.kof = 1) and (Head^.deg <> 0) then
-    begin
-      Write('x^', Head^.deg);
+    if ((Head^.kof = 1) and (Head^.deg <> 0))then begin
+      Write('x^',Head^.deg)
     end
-    else if (Head^.kof = -1) and (Head^.deg <> 0) then
-    begin
-      Write('-x^', Head^.deg);
-    end
-    else if (Head^.kof = 0) then
-    begin
-      write('');
-    end
-    else if (Head^.kof < 0) then
-    begin
-      Write(Head^.kof, 'x^', Head^.deg);
-    end
+    else if (Head^.kof = 0) then write('')
     else if (head^.deg = 0) then
     begin
       write(Head^.kof);
     end
-    else
-      Write('+', Head^.kof, 'x^', Head^.deg);
+    else Write( Head^.kof, 'x^', Head^.deg);
     Head := Head^.link;
+    if (Head <> nil) and (Head^.kof <> 0) then Write(' + ');
   end;
   Writeln;
 end;
-
 //функция возведения в степень
 function power(x, deg: integer): integer;
 var
@@ -188,8 +174,8 @@ begin
   writeln('RESULT: ',countingval(polynom,input));
 
 // Вывод списка
-  Write('List: ');
-  PrintList(polynom);
+  //Write('List: ');
+  //PrintList(polynom);
 
   writeln('-----------');
 

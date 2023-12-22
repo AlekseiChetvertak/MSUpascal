@@ -52,14 +52,14 @@ var s: string; // строка для хранения многочлена
 begin
   p := nil; // инициализируем список
   write('Введите многочлен: ');
-  read(s); // считываем многочлен
+  read(s); // считываем многочлен //fix2
   s := s + ' ';
   i := 1;
 
   while s[i] <> ' ' do // до конца строки
   begin
   //проверка ввода
-  for k:=1 to Length(s) do begin
+  for k:=1 to Length(s) do begin //fix1
     if (s[k] in ['+','-',' ']) or (s[k] in ['1'..'9']) or (s[k] = 'X') or (s[k] = '^') then
     begin
     val:=true;
@@ -112,7 +112,7 @@ begin
   end;
 end;
 
-//процедура вывода многочлена
+
 //процедура вывода многочлена
 procedure PrintList(Head: PNode);
 begin
@@ -180,7 +180,7 @@ begin
   // Инициализация начала списка
   polynom := nil;
   UserEnterPolynom(polynom,validation); //ввод 
-if validation then
+if validation then //fix1
 begin
   write('enter x:');
   read(input);
