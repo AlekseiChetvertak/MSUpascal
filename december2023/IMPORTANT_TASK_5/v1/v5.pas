@@ -60,13 +60,12 @@ end;
 // процедура ввода с клавиатуры
 procedure UserEnterPolynom(var p:PNode;var val:boolean);
 var s: char; // строка для хранения многочлена
-  k,i, deg, kof: integer; // переменные для циклов и вычислений
+  deg, kof: integer; // переменные для циклов и вычислений
   sign: char; // знак одночлена
 begin
   p := nil; // инициализируем список
   write('Введите многочлен: ');
   read(s); // считываем многочлен //fix2
-  i := 1;
 
   while s <> ' ' do // до конца строки
   begin
