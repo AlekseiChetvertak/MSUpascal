@@ -15,22 +15,35 @@ var
   
 
 //процедура ввода полинома
+//процедура ввода полинома
 procedure EnteringPolynom(var pol: PNode; koef, degr: Integer);
+var
+  currentNode: PNode;
 begin
-  if pol = nil then
+  currentNode := pol;
+
+  // проверка на существование совпадений
+  while (currentNode <> nil) and (currentNode^.deg <> degr) do
   begin
-    // Если список пуст, создаем новый узел
-    New(pol);
-    pol^.kof := koef;
-    pol^.deg := degr;
-    pol^.link := nil;
+    currentNode := currentNode^.link;
+  end;
+
+  if currentNode <> nil then
+  begin
+    // если одинаковая степень найдена, обновим коэф
+    currentNode^.kof := currentNode^.kof + koef;
   end
   else
   begin
-    // Рекурсивно вызываем процедуру для следующего узла
-    EnteringPolynom(pol^.link, koef, degr);
+    // если нет,то просто создадим новый
+    New(currentNode);
+    currentNode^.kof := koef;
+    currentNode^.deg := degr;
+    currentNode^.link := pol;
+    pol := currentNode;
   end;
 end;
+
 
 //процедуры (очистка памяти)
  procedure clearmemory(var pol:PNode);
@@ -46,38 +59,37 @@ end;
 
 // процедура ввода с клавиатуры
 procedure UserEnterPolynom(var p:PNode;var val:boolean);
-var s: string; // строка для хранения многочлена
+var s: char; // строка для хранения многочлена
   k,i, deg, kof: integer; // переменные для циклов и вычислений
   sign: char; // знак одночлена
 begin
   p := nil; // инициализируем список
   write('Введите многочлен: ');
   read(s); // считываем многочлен //fix2
-  s := s + ' ';
   i := 1;
 
-  while s[i] <> ' ' do // до конца строки
+  while s <> ' ' do // до конца строки
   begin
   //проверка ввода
-  for k:=1 to Length(s) do begin //fix1
-    if (s[k] in ['+','-',' ']) or (s[k] in ['1'..'9']) or (s[k] = 'X') or (s[k] = '^') then
+
+    if (s in ['+','-',' ']) or (s in ['1'..'9']) or (s = 'X') or (s = '^') then
     begin
     val:=true;
     end
     else begin
-      writeln('mistake', s[k]);
+      writeln('mistake', s);
       val:=false;
       exit;
     end;
-  end; 
+ 
   sign := '+';
-  if s[i] in ['+', '-'] then // если встретили знак
+  if s in ['+', '-'] then // если встретили знак
     begin
-    sign := s[i];
-    i := i + 1; 
+    sign := s;
+    read(s); 
   end;
 
-  if s[i] = '0' then // если встретили нулевой многочлен
+  if s = '0' then // если встретили нулевой многочлен
   begin
     EnteringPolynom(p, 0, 0); 
     break;
@@ -86,25 +98,25 @@ begin
  
   kof := 1; //инициализация
   deg := 0; 
-  if s[i] <> 'X' then begin 
+  if s <> 'X' then begin 
     kof := 0; // обнуляем коэффициент
-    while s[i] in ['0'..'9'] do begin
-      kof := kof * 10 + ord(s[i]) - ord('0'); // вычисляем коэффициент
-      i := i + 1; 
+    while s in ['0'..'9'] do begin
+      kof := kof * 10 + ord(s) - ord('0'); // вычисляем коэффициент
+      read(s);
       end;
   end;
   if sign = '-' then kof := -kof;
-  if s[i] = 'X' then 
+  if s = 'X' then 
   begin
-  i := i + 1; 
+  read(s);
   deg := 1;
-  if s[i] = '^' then 
+  if s = '^' then 
   begin
-    i := i + 1; 
+    read(s);
     deg := 0;
-    while s[i] in ['0'..'9'] do begin
-      deg := deg * 10 + ord(s[i]) - ord('0'); // вычисляем степень
-      i := i + 1; 
+    while s in ['0'..'9'] do begin
+      deg := deg * 10 + ord(s) - ord('0'); // вычисляем степень
+      read(s);
     end;
   end;
   end;
@@ -112,39 +124,39 @@ begin
   end;
 end;
 
-
 //процедура вывода многочлена
-procedure PrintList(Head: PNode); //fix3
+procedure PrintList(Head: PNode);
+var
+  isFirstTerm: Boolean; // флаг для отслеживания первого члена
 begin
+  isFirstTerm := True; // инициализация флага
   // Вывод элементов списка
   while Head <> nil do
   begin
-    if (Head^.kof = 1) and (Head^.deg <> 0) then
+    if (Head^.kof <> 0) then
     begin
-      Write('x^', Head^.deg);
-    end
-    else if (Head^.kof = -1) and (Head^.deg <> 0) then
-    begin
-      Write('-x^', Head^.deg);
-    end
-    else if (Head^.kof = 0) then
-    begin
-      write('');
-    end
-    else if (Head^.kof < 0) then
-    begin
-      Write(Head^.kof, 'x^', Head^.deg);
-    end
-    else if (head^.deg = 0) then
-    begin
-      write(Head^.kof);
-    end
-    else
-      Write('+', Head^.kof, 'x^', Head^.deg);
+      if isFirstTerm then
+      begin
+        Write(Head^.kof);
+        isFirstTerm := False;
+      end
+      else
+      begin
+        if (Head^.kof > 0) then
+          Write('+');
+        Write(Head^.kof);
+      end;
+
+      if (Head^.deg <> 0) then
+      begin
+        Write('x^', Head^.deg);
+      end;
+    end;
     Head := Head^.link;
   end;
   Writeln;
 end;
+
 
 //функция возведения в степень
 function power(x, deg: integer): integer;
@@ -198,6 +210,7 @@ begin
 end else
 begin
   writeln('mistake found; program stoped');
+  clearmemory(polynom);
   exit;
 end;
 end.
