@@ -13,7 +13,6 @@ begin
   begin
     read(cur);
     if (cur = 'e') then
-    writeln('flag: firstif');
     begin
       if((prev1 = 'h') and (prev2 = 't')) then
       begin
