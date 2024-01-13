@@ -13,8 +13,6 @@ var
   input:integer;
   validation:Boolean;
   
-
-//процедура ввода полинома
 //процедура ввода полинома
 procedure EnteringPolynom(var pol: PNode; koef, degr: Integer);
 var
@@ -44,14 +42,13 @@ begin
   end;
 end;
 
-
 //процедуры (очистка памяти)
  procedure clearmemory(var pol:PNode);
   var nextNode:PNode;
   begin
   while pol <> nil do
   begin
-    nextNode:= pol^.link;
+    nextNode := pol^.link;
     Dispose(pol);
     pol := nextNode;
   end;
@@ -59,20 +56,23 @@ end;
 
 // процедура ввода с клавиатуры
 procedure UserEnterPolynom(var p:PNode;var val:boolean);
-var s: char; // строка для хранения многочлена
-  deg, kof: integer; // переменные для циклов и вычислений
-  sign: char; // знак одночлена
+var s:char; // строка для хранения многочлена
+  deg, kof:integer; // переменные для циклов и вычислений
+  sign:char; // знак одночлена
+  isFirstTerm:Boolean;//проверка на ввод неправильного первого числа
 begin
   p := nil; // инициализируем список
   write('Введите многочлен: ');
   read(s); // считываем многочлен //fix2
-
+  isFirstTerm:=True;
   while s <> ' ' do // до конца строки
   begin
   //проверка ввода
-
     if (s in ['+','-',' ']) or (s in ['1'..'9']) or (s = 'X') or (s = '^') then
     begin
+    if not((isFirstTerm) and ((not(s in ['1'..'9'])) or (not(s = 'X')))) then begin
+      isFirstTerm:=False;
+    end;
     val:=true;
     end
     else begin
@@ -145,7 +145,6 @@ begin
           Write('+');
         Write(Head^.kof);
       end;
-
       if (Head^.deg <> 0) then
       begin
         Write('x^', Head^.deg);
@@ -170,6 +169,7 @@ begin
   power := res;
 end;
 
+//подсчет значения при заданном X
 function countingval(Head: PNode; x: integer): integer;
 var
   p: PNode;
