@@ -16,7 +16,6 @@ procedure addtobeg(const origfilename:string; content1:string);
 var orig,newf:f;
     a:char;
     i:integer;
-
 begin
   //open the files
   Assign(orig,origfilename);
@@ -35,7 +34,7 @@ begin
   end;
 
   Close(orig);
-Close(newf);
+  Close(newf);
 
   erase(orig);
   rename(newf,origfilename);
