@@ -1,7 +1,9 @@
 { 
 Linear sorting is rarely used due to its inefficiency. 
 Idea: iterate over each element. 
-Search difficulty - O(n) 
+Search difficulty - O(n).
+
+maybe used for small arrays THAT ARE NOT SORTED.
 }
 program linear_search;
 const n = 4;
