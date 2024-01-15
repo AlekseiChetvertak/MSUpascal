@@ -20,7 +20,6 @@ begin
         for j:=1 to (Length(a)-i) do 
         begin
             if a[j]<a[j+1] then 
-            begin
 
                 writeln();
                 write(a[j],' < ',a[j+1]); 
