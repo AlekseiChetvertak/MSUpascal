@@ -1,6 +1,8 @@
 {
-Bubble sort has a time complexity of O(n^2) 
-in the worst and average cases.
+  Bubble Sort
+Time Complexity: O(n^2)
+Space Complexity: O(1)
+Notes: Simple and easy to implement, but not efficient for large datasets.
 }
 
 program bubblesort;
