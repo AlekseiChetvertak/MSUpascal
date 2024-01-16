@@ -19,5 +19,4 @@ end;
 // main
 begin
   createfile('letters.txt', '567');
-
 end.
