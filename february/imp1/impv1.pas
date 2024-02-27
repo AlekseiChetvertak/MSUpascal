@@ -19,10 +19,12 @@ end;
 
 //global var
 var
+  xf1f2,xf1f3,xf2f3:real;
   mode:byte;
 //main
 begin
 writeln('type mode: 1 - debug; 0 - run');
+readln(mode);
 
 
 end.

@@ -57,34 +57,39 @@ begin
     until false;
 end;
 
-
-function integral (f:TF; a, b, I1:real; n:integer; mode, num:integer):real; //нахождение площади криволинейной трапеции
-var i:integer;
-h, sum, I2: real;
+//метод симпсона
+function integral (f:TF; a, b, I1:real; n:integer; mode, num:integer):real;
+var
+  i: integer;
+  h, sum_odd, sum_even, x: real;
 begin
-  if(a > b) then
+  if (a > b) then
   begin
-    h:=a;
-    a:=b;
-    b:=h;
+    h := a;
+    a := b;
+    b := h;
   end;
-  
-  if(mode = 1) then
+
+  if (mode = 1) then
   begin
-    num:=num+1;
-    debug('Integral: ', I1, 'number of segments:', n, 'iteration number:', num); 
+    num := num + 1;
+    debug('Integral: ', I1, ' number of segments:', n, ' iteration number:', num);
   end;
-  
-  sum:=0;
-  h:=(b - a) / n;
-  for i:=1 to n - 1 do
-    sum:=sum + f(a + i*h);
-  I2:=h * (0.5 * f(a) + sum + 0.5 * f(b));
-  
-  if (1.3 * abs(I1 - I2) < eps2) then 
-    integral:=I2
-  else 
-    integral:=integral(f, a, b, I2, n * 2,  mode, num);
+
+  sum_odd := 0;
+  sum_even := 0;
+  h := (b - a) / n;
+
+  for i := 1 to n - 1 do
+  begin
+    x := a + i * h;
+    if (i mod 2 = 0) then
+      sum_even := sum_even + f(x)
+    else
+      sum_odd := sum_odd + f(x);
+  end;
+
+  integralSimpson := (h / 3) * (f(a) + 4 * sum_odd + 2 * sum_even + f(b));
 end;
 
 end.
