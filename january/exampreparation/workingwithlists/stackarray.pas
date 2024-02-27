@@ -13,29 +13,29 @@ type stack = record
             S:array[0..n] of char;
             top: 0..N;
           end;
-
+//--------------
 procedure initSt(var St:stack); //инициализация
 begin
   St.top := 0;
 end;
-
+//--------------
 function isEmptySt(var St:stack):boolean;
 begin
   isEmptySt := St.top = 0 //isEmptySt := true,only if (St,top = 0) = true
 end;
-
+//--------------
 procedure push(x:char;var St:stack);
 begin
   St.top := St.top + 1;
   St.S[St.top] := x;
 end;
-
+//--------------
 procedure pop(var St:stack;var x:char);
 begin
   x := St.S[St.top]; //сохраняем последний элемент
   St.top := St.top - 1; //номер последнего уменьшаем на один
 end;
-
+//--------------
 procedure print(St:stack);
 var i:integer;
 begin
@@ -46,15 +46,16 @@ begin
     begin
       write(St.S[i], '|');
     end;
-    
-    
   end;
 end;
+//--------------
+
+procedure from
+
 
 var a:char; mainstack:stack;
-
+//main
 begin
-
   writeln('enter stack');
   repeat
     read(a);
