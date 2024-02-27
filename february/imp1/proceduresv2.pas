@@ -87,6 +87,4 @@ begin
     integral:=integral(f, a, b, I2, n * 2,  mode, num);
 end;
 
-
-
 end.
