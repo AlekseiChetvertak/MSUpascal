@@ -17,10 +17,12 @@ begin
   g:= power(x,3);
 end;
 
-
+//global var
 var
-  a, b, e, x: real;
-
+  mode:byte;
+//main
 begin
-  writeln(fminusg(@f,@g));
+writeln('type mode: 1 - debug; 0 - run');
+
+
 end.
